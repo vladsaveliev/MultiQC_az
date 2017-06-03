@@ -14,10 +14,13 @@ requirements:
   build:
     - python
     - multiqc >=1.0
+    - ngs_utils
 
   run:
     - python
     - multiqc >=1.0
+    - ngs_utils
+    - requests
 
 test:
   imports:
