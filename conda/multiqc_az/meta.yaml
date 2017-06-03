@@ -1,0 +1,29 @@
+package:
+  name: multiqc-az
+  version: "1.0"
+
+source:
+  git_url: https://github.com/vladsaveliev/MultiQC_az
+  git_rev: master
+
+build:
+  number: 0
+  preserve_egg_dir: True
+
+requirements:
+  build:
+    - python
+    - multiqc >=1.0
+
+  run:
+    - python
+    - multiqc >=1.0
+
+test:
+  imports:
+    - multiqc_az.multiqc_az
+
+about:
+  home: http://multiqc.info
+  license: GNU General Public License v3 (GPLv3)
+  summary: 'MultiQC plugin for bcbio report visualization in AstraZeneca Oncology.'

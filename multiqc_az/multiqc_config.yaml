@@ -1,0 +1,75 @@
+max_table_rows: 100
+plots_flat_numseries: 200
+no_version_check: True
+template: 'az'
+read_count_multiplier: 1
+read_count_prefix: ''
+read_count_desc: ''
+output_fn_name: 'report.html'
+make_data_dir: False
+
+sp:
+    bcbio_az/metrics:
+        fn: '*_bcbio.txt'
+    bcbio_az/coverage:
+        fn: '*_bcbio_coverage.txt'
+    bcbio_az/coverage_avg:
+        fn: '*_bcbio_coverage_avg.txt'
+    bcbio_az/variants:
+        fn: '*_bcbio_variants.txt'
+    bcbio_az/target:
+        fn: 'target_info.yaml'
+    bcbio_az/qsignature:
+        fn: '*bcbio_qsignature.ma'
+    bcbio_az/vcfstats:
+        fn: '*_bcbio_variants_stats.txt'
+    bcbio_az/seqbuster:
+        cotents': 'seqbuster'
+    bcbio_az/umi:
+        fn: '*_umi_stats.yaml'
+    bcbio_az/viral:
+        fn: '*viral*-counts.txt'
+    bcbio_az/damage:
+        fn: '*damage.yaml'
+    targqc/summary:
+        fn: 'summary.json'
+    rnaseq_az/pca_data:
+        fn: 'pca_data.txt'
+
+# Overwrite the defaults of which table columns are visible by default
+table_columns_visible:
+    FastQC:
+        percent_gc: False
+        percent_duplicates: False  # is also set in bcbio/__init__.py
+        total_sequences: False     # is also set in bcbio/__init__.py
+    QualiMap:
+        median_coverage: False
+        reads_aligned: False
+        percentage_aligned: False  # is also set in bcbio/__init__.py
+    Samtools Stats:
+        error_rate: False
+        non-primary_alignments: False
+        reads_mapped: False
+        reads_mapped_percent: False
+        raw_total_sequences: False
+    bcbio:
+        Ontarget_padded_pct: True
+    SnpEff:
+        Change_rate: False
+        Ts_Tv_ratio: False
+        Number_of_variants_before_filter: False
+    Bcftools Stats:
+        number_of_SNPs: True
+        number_of_indels: True
+        tstv: True
+        number_of_records: False
+        variations_hom: False
+        variations_het: False
+        number_of_MNPs: False
+        number_of_others: False
+
+preseq:
+    notrim: True
+
+bcftools:
+    collapse_complementary_changes: True

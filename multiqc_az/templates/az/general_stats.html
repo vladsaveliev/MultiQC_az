@@ -1,0 +1,20 @@
+{# #######################
+  general_stats.html
+##########################
+
+This block generates the General Statistics table at the top of the report.
+
+#}
+
+{% if not config.skip_generalstats %}
+{% from "groups.html" import postalign_group %}
+<div id="{{ postalign_group.id }}">
+  <h2>{{ postalign_group.title }}</h2>
+  {{ report.general_stats_html }}
+</div>
+{% if report.ngs_reports_added %}
+<div style="margin: -15px 5px 35px;">
+  To access NGS Oncology reports, click on a sample name.
+</div>
+{% endif %}
+{% endif %}

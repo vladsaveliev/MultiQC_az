@@ -1,0 +1,40 @@
+{# Defining our high-level group: #}
+
+{% set postalign_group = dict(
+  id="postalign",
+  title="Post-Alignment",
+  table="postalign-stats",
+  anchors=[
+      "qualimap", "targqc", "Samtools",
+      "rnaseq_az", "featureCounts", "salmon", "star", "tophat",
+      "bcbio-mirs", "bcbio-isomirs"]) %}
+      {#"bcbio-fraction-coverage",#}
+
+{% set groups = [
+postalign_group,
+dict(
+  id="umi",
+  title="UMI",
+  table="umi-stats",
+  anchors=["umi-stats-counts"]),
+dict(
+  id="preseq",
+  title="Preseq",
+  table=none,
+  anchors=["preseq"]),
+dict(
+  id="viral",
+  title="Viral mapping",
+  table="viral-counts",
+  anchors=[]),
+dict(
+  id="variants",
+  title="Variations",
+  table=none,
+  anchors=["snpeff", "Bcftools", "bcbio-fraction-variants", "bcbio-fraction-qsignature", "damage-stats"]),
+dict(
+  id="prealign",
+  title="Fastq",
+  table=none,
+  anchors=["fastqc", "cutadapt", "trimmomatic", "fastq_screen", "bcl2fastq"]),
+] %}
