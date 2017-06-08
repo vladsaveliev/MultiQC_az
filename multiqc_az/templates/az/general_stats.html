@@ -12,9 +12,14 @@ This block generates the General Statistics table at the top of the report.
   <h2>{{ postalign_group.title }}</h2>
   {{ report.general_stats_html }}
 </div>
-{% if report.ngs_reports_added %}
+{% if (report.ngs_reports_added or report.lims_added) %}
 <div style="margin: -15px 5px 35px;">
+  {% if report.ngs_reports_added %}
   To access NGS Oncology reports, click on a sample name.
+  {% endif %}
+  {% if report.lims_added %}
+  To access Clarity LIMS, click on a sample type.
+  {% endif %}
 </div>
 {% endif %}
 {% endif %}

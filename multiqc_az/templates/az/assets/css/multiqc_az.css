@@ -31,3 +31,7 @@
 .rhs {
   font-size: 50%;
   line-height: 1; }
+
+.mqc_table tbody tr td .wrapper .val {
+    z-index: 0;
+}
