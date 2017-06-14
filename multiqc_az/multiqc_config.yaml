@@ -73,3 +73,13 @@ preseq:
 
 bcftools:
     collapse_complementary_changes: True
+
+clarity:
+  general_stats:
+      Sample:
+          'Sample Type':
+              'title': 'Type'
+          'Sample Tissue':
+              'title': 'Type'
+          'Sample Conc.':
+              title: 'Conc.'
