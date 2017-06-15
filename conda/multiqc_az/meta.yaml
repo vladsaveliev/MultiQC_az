@@ -1,6 +1,6 @@
 package:
   name: multiqc-az
-  version: "1.0"
+  version: "1.0.1"
 
 source:
   git_url: https://github.com/vladsaveliev/MultiQC_az

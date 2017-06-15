@@ -24,7 +24,7 @@ sp:
     bcbio_az/vcfstats:
         fn: '*_bcbio_variants_stats.txt'
     bcbio_az/seqbuster:
-        cotents': 'seqbuster'
+        cotents: 'seqbuster'
     bcbio_az/umi:
         fn: '*_umi_stats.yaml'
     bcbio_az/viral:
