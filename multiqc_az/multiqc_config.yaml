@@ -2,9 +2,9 @@ max_table_rows: 100
 plots_flat_numseries: 200
 no_version_check: True
 template: 'az'
-read_count_multiplier: 1
-read_count_prefix: ''
-read_count_desc: ''
+read_count_multiplier: 1000
+read_count_prefix: 'k'
+read_count_desc: ' thousand'
 output_fn_name: 'report.html'
 make_data_dir: False
 
@@ -75,11 +75,11 @@ bcftools:
     collapse_complementary_changes: True
 
 clarity:
-  general_stats:
-      Sample:
-          'Sample Type':
-              'title': 'Type'
-          'Sample Tissue':
-              'title': 'Type'
-          'Sample Conc.':
-              title: 'Conc.'
+    general_stats:
+        Sample:
+            'Sample Type':
+                'title': 'Type'
+            'Sample Tissue':
+                'title': 'Type'
+            'Sample Conc.':
+                title: 'Conc.'
