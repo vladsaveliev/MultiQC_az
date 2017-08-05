@@ -5,8 +5,6 @@ specific to AstraZeneca Oncology.
 For more information about MultiQC, see http://multiqc.info
 """
 import sys
-
-from ngs_utils import setup_utils
 from setuptools import setup, find_packages
 
 version = '1.0'

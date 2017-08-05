@@ -27,15 +27,33 @@ the output from each module and print it in sections.
     </p>"
 } %}
 
-{% macro print_section(module_anchor, section) -%}
-  <div class="mqc-section mqc-section-{{ module_anchor }}" id="{{ section.anchor }}">
-  {% if section.content %}
-    {% if section.anchor in description_by_section %}
-      {{ description_by_section[section.anchor] }}
-      {{ section.content|replace("<p>", "<p style='display: none;'>") }}
-    {% else %}
-      {{ section.content }}
+
+{% macro print_section(module_anchor, s) -%}
+  {% if s.print_section %}
+    <div class="mqc-section mqc-section-{{ module_anchor }}" id="{{ s.anchor }}">
+      {% if s.helptext is not none %}
+        <div class="collapse mqc-section-helptext " id="{{ s.anchor }}_helptext">
+          <div class="well">{{ s.helptext }}</div>
+        </div>
+      {% endif %}
+      {% if s.name is not none and s.name | length > 0 %}<h3 id="{{ s.anchor }}">{{ s.name }}</h3>{% endif %}
+
+{#    {% if section.anchor in description_by_section %}#}
+{#      {% if s['description'] is not none %}<div class="mqc-section-description">{{ s['description'] }}</div>{% endif %}#}
+{#      {{ description_by_section[section.anchor] }}#}
+{#      {{ section.content|replace("<p>", "<p style='display: none;'>") }}#}
+{#    {% else %}#}
+
+    {% if s.description is not none %}<div class="mqc-section-description">{{ s.description }}</div>{% endif %}
+    {% if s.helptext is not none %}
+      <div class="collapse mqc-section-helptext " id="{{ s.anchor }}_helptext">
+        <div class="well">{{ s.helptext }}</div>
+      </div>
     {% endif %}
+    {% if s.plot is not none %}<div class="mqc-section-plot">{{ s.plot }}</div>{% endif %}
+
+    {{ s.content if s.content }}
+{#    {% endif %}#}
   {% endif %}
   </div>
 {%- endmacro %}
@@ -56,7 +74,6 @@ the output from each module and print it in sections.
       {% endif %}
       {% for s in m.sections %}
         {% if m.anchor == anchor or s.anchor == anchor %}
-          <h3 id="{{ s.anchor }}">{{ s.name }}</h3>
           {{ print_section(m.anchor, s) }}
           <br>
         {% endif %}

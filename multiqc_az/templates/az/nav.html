@@ -6,10 +6,12 @@ The side navigation for the report.
 
 #}
 
-{% macro print_section(section) -%}
-  <li id="{{ section.anchor }}-nav">
-    <a href="#{{ section.anchor }}" class="nav-l2">{{ section.name|striptags }}</a>
-  </li>
+{% macro print_section(s) -%}
+  {% if s.name is not none and s.name | length > 0 %}
+    <li id="{{ s.anchor }}-nav">
+      <a href="#{{ s.anchor }}" class="nav-l2">{{ s.name|striptags }}</a>
+    </li>
+  {% endif %}
 {%- endmacro %}
 
 {% macro find_sections(group) %}
