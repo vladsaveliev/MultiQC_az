@@ -9,28 +9,6 @@ output_fn_name: 'report.html'
 make_data_dir: False
 
 sp:
-    bcbio_az/metrics:
-        fn: '*_bcbio.txt'
-    bcbio_az/coverage:
-        fn: '*_bcbio_coverage.txt'
-    bcbio_az/coverage_avg:
-        fn: '*_bcbio_coverage_avg.txt'
-    bcbio_az/variants:
-        fn: '*_bcbio_variants.txt'
-    bcbio_az/target:
-        fn: 'target_info.yaml'
-    bcbio_az/qsignature:
-        fn: '*bcbio_qsignature.ma'
-    bcbio_az/vcfstats:
-        fn: '*_bcbio_variants_stats.txt'
-    bcbio_az/seqbuster:
-        cotents: 'seqbuster'
-    bcbio_az/umi:
-        fn: '*_umi_stats.yaml'
-    bcbio_az/viral:
-        fn: '*viral*-counts.txt'
-    bcbio_az/damage:
-        fn: '*damage.yaml'
     targqc/summary:
         fn: 'summary.json'
     rnaseq_az/pca_data:
