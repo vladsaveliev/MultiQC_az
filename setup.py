@@ -7,7 +7,7 @@ For more information about MultiQC, see http://multiqc.info
 import sys
 from setuptools import setup, find_packages
 
-version = '1.0'
+version = '1.1'
 
 
 setup(
