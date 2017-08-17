@@ -30,32 +30,42 @@ the output from each module and print it in sections.
 
 {% macro print_section(module_anchor, s) -%}
   {% if s.print_section %}
-    <div class="mqc-section mqc-section-{{ module_anchor }}" id="{{ s.anchor }}">
-      {% if s.helptext is not none %}
+    {% if (s['name'] is none or s['name'] | length == 0) and s['helptext'] is not none and s['helptext'] | length > 0 %}
+      <button class="btn btn-default btn-sm pull-right" type="button" data-toggle="collapse" data-target="#{{ s['anchor'] }}_helptext" aria-expanded="false" aria-controls="{{ s['anchor'] }}_helptext">
+        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+        Help
+      </button>
+    {% endif %}
+    <div class="mqc-section mqc-section-{{ module_anchor }}">
+      {% if s.name is not none and s.name | length > 0 %}
+        <h3 id="{{ s.anchor }}">
+            {{ s.name }}
+            {% if s['helptext'] is not none and s['helptext'] | length > 0 %}
+              <button class="btn btn-default btn-sm pull-right" type="button" data-toggle="collapse" data-target="#{{ s['anchor'] }}_helptext" aria-expanded="false" aria-controls="{{ s['anchor'] }}_helptext">
+                <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                Help
+              </button>
+            {% endif %}
+        </h3>
+      {% endif %}
+      {% if s.description is not none and s.description | length > 0 %}<div class="mqc-section-description">{{ s.description }}</div>{% endif %}
+      {% if s.comment is not none and s.comment | length > 0 %}<blockquote class="mqc-section-comment">{{ s.comment }}</blockquote>{% endif %}
+      {% if s.helptext is not none and s.helptext | length > 0 %}
         <div class="collapse mqc-section-helptext " id="{{ s.anchor }}_helptext">
           <div class="well">{{ s.helptext }}</div>
         </div>
       {% endif %}
-      {% if s.name is not none and s.name | length > 0 %}<h3 id="{{ s.anchor }}">{{ s.name }}</h3>{% endif %}
+      {% if s.plot is not none %}<div class="mqc-section-plot">{{ s.plot }}</div>{% endif %}
+      {{ s.content if s.content }}
 
 {#    {% if section.anchor in description_by_section %}#}
 {#      {% if s['description'] is not none %}<div class="mqc-section-description">{{ s['description'] }}</div>{% endif %}#}
 {#      {{ description_by_section[section.anchor] }}#}
 {#      {{ section.content|replace("<p>", "<p style='display: none;'>") }}#}
 {#    {% else %}#}
+    </div>
 
-    {% if s.description is not none %}<div class="mqc-section-description">{{ s.description }}</div>{% endif %}
-    {% if s.helptext is not none %}
-      <div class="collapse mqc-section-helptext " id="{{ s.anchor }}_helptext">
-        <div class="well">{{ s.helptext }}</div>
-      </div>
-    {% endif %}
-    {% if s.plot is not none %}<div class="mqc-section-plot">{{ s.plot }}</div>{% endif %}
-
-    {{ s.content if s.content }}
-{#    {% endif %}#}
   {% endif %}
-  </div>
 {%- endmacro %}
 
 {% macro find_sections(group) %}
@@ -71,6 +81,7 @@ the output from each module and print it in sections.
       {% if m.anchor == anchor %}
         <div id="mqc-module-section-{{ m.anchor }}" class="mqc-module-section">
         {{ m.intro if m.intro }}
+        {% if m.comment %}<blockquote class="mqc-section-comment">{{ m.comment }}</blockquote>{% endif %}
       {% endif %}
       {% for s in m.sections %}
         {% if m.anchor == anchor or s.anchor == anchor %}
