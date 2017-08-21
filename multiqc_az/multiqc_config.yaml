@@ -1,4 +1,4 @@
-max_table_rows: 100
+max_table_rows: 200
 plots_flat_numseries: 200
 no_version_check: True
 template: 'az'
