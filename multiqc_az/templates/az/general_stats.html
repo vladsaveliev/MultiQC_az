@@ -14,15 +14,15 @@ This block generates the General Statistics table at the top of the report.
 </div>
 {% if (report.ngs_reports_added or report.lims_added) %}
 <div style="margin: -15px 5px 35px;">
-  {% if report.ngs_reports_added %}
-  To access NGS Oncology reports, click on a sample name.
+  {% if report.ngs_reports_added and not report.beeswarm_renderred  %}
+    To access NGS Oncology reports, click on a sample name.
   {% endif %}
   {% if report.lims_added %}
-      {% if report.lims_col %}
+    {% if report.lims_col %}
       To access Clarity LIMS, click on a {{ report.lims_col }}.
-      {% else %}
+    {% else %}
       To access Clarity LIMS, click on a sample type.
-      {% endif %}
+    {% endif %}
   {% endif %}
 </div>
 {% endif %}

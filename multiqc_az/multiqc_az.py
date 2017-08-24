@@ -61,6 +61,7 @@ class load_metadata:
             log.warn('Warning: --az-metadata option is not provided to MultiQC')
 
 
+# TODO: move descriptions to proper places according to changes in MultiQC v1.2
 general_stats_descriptions = {
     '5_3_bias':
         '5\'/3\' bias. Significant deviation of 5\'/3\' ratios from the ' +
@@ -76,18 +77,19 @@ class before_set_general_stats_html:
                 if k in header:
                     header[k]['description'] = v
 
-        if 'az' in report.__dict__ and 'gender_by_sample' in report.az:
-            log.info('Adding Gender metrics from NGS_Reports')
-            report.general_stats_data.append({
-                sname: {'gender' : data} for sname, data
-                in report.az['gender_by_sample'].items()
-            })
-            report.general_stats_headers.append({
-                'gender': {
-                    'title': 'Gender',
-                    'description': 'Gender based on coverage of specific chrY regions (if they overlap with target)',
-                }
-            })
+        if 'az' in report.__dict__:
+            if 'gender_by_sample' in report.az:
+                log.info('Adding Gender metrics from NGS_Reports')
+                report.general_stats_data.append({
+                    sname: {'gender' : data} for sname, data
+                    in report.az['gender_by_sample'].items()
+                })
+                report.general_stats_headers.append({
+                    'gender': {
+                        'title': 'Gender',
+                        'description': 'Gender based on coverage of specific chrY regions (if they overlap with target)',
+                    }
+                })
 
 
 class after_set_general_stats_html:
@@ -96,11 +98,34 @@ class after_set_general_stats_html:
             log.info('Adding NGS repots links')
             for sname in report.az['ngs_report_by_sample']:
                 if report.az['ngs_report_by_sample'][sname] is not None:
-                    report.general_stats_html = report.general_stats_html\
+                    report.general_stats_html = report.general_stats_html \
                         .replace(
                             '>' + sname + '<',
                             '><a href="' + report.az['ngs_report_by_sample'][sname] + '">' + sname + '</a><')
             report.ngs_reports_added = True
+
+            if len(report.az['ngs_report_by_sample'].items()) >= config.max_table_rows:
+                new_general_stats_html = ''
+                for l in report.general_stats_html.split('\n'):
+                    if 'http://multiqc.info/docs/#tables--beeswarm-plots' in l:
+                        l = ('<p class="text-muted"><span class="glyphicon glyphicon-exclamation-sign" '
+                             'data-toggle="tooltip"></span> A <a href="http://multiqc.info/docs/#tables--beeswarm-plots"> '
+                             'beeswarm</a> plot has been generated instead because of the large number of samples. '
+                             'Showing {} samples:<br>').format(len(report.az['ngs_report_by_sample']))
+                        sample_lines = []
+                        for sname in report.az['ngs_report_by_sample']:
+                            if report.az['ngs_report_by_sample'][sname] is not None:
+                                sample_lines.append('<a href="' + report.az['ngs_report_by_sample'][sname] + '">' + sname + '</a>')
+                            else:
+                                sample_lines.append(' <span>' + sname + '</span>')
+                        l += ',&nbsp'.join(sample_lines) + '</p>'
+                    new_general_stats_html += l
+                report.general_stats_html = new_general_stats_html
+
+                # TODO beeswarm plot:
+                # 1. hide hidden columns
+                # 2. point on sample -> highlight dot in chart
+                # 3. point on dot in chart -> show sample name in a tooltip
 
             # fixed_stats_data = []
             # for section in report.general_stats_data:
@@ -112,4 +137,3 @@ class after_set_general_stats_html:
             #         fixed_section[sname] = data
             #     fixed_stats_data.append(fixed_section)
             # report.general_stats_data = fixed_stats_data
-
