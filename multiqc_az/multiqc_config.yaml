@@ -1,5 +1,5 @@
-max_table_rows: 200
-plots_flat_numseries: 200
+max_table_rows: 500
+plots_flat_numseries: 300
 no_version_check: True
 template: 'az'
 #read_count_multiplier: 0.001
