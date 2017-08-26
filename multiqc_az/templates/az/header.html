@@ -26,30 +26,34 @@ was generated and the button that launches the welcome tour.
 
 <div class="well">
     <dl class="dl-horizontal" style="margin-bottom:0;">
+        {% if report.az %}
         {{ '<dt>Project:</dt><dd>' + report.az.project_name + '</dd>' }}
         {{ '<dt>Creation date:</dt><dd>' + report.az.run_section.run_date
-            + ('&nbsp;&nbsp;|&nbsp;&nbsp;' + report.az.run_section.program_versions if report.az.run_section.program_versions else '')
-            + ('&nbsp;&nbsp;|&nbsp;&nbsp;' + report.az.run_section.data_versions if report.az.run_section.data_versions else '')
-            + '</dd>' }}
+          + ('&nbsp;&nbsp;|&nbsp;&nbsp;' + report.az.run_section.program_versions if report.az.run_section.program_versions else '')
+          + ('&nbsp;&nbsp;|&nbsp;&nbsp;' + report.az.run_section.data_versions if report.az.run_section.data_versions else '')
+          + '</dd>' }}
         {{ '<dt>Analysis directory:</dt><dd>' + report.az.run_section.analysis_dir + '</dd>' }}
+        {% endif %}
     {% if config.report_header_info and config.report_header_info | length > 0 %}
         {% for d in config.report_header_info %}{% for k, v in d.items() %}
-          <dt>{{ k }}</dt><dd>{{ v }}</dd>
+        <dt>{{ k }}</dt><dd>{{ v }}</dd>
         {% endfor %}{% endfor %}
     {% endif %}
     </dl>
 </div>
 
+{% if report.az %}
 <div style="margin-left: 5px; margin-bottom: 5px;">
     {{ '<b>Mutations:</b>&nbsp;&nbsp;' + '&nbsp;&nbsp;|&nbsp;&nbsp;'.join(report.az.mutations_links) + '</br>'
-            if report.az.mutations_links }}
+        if report.az.mutations_links }}
     {{ '<b>Expression:</b>&nbsp;&nbsp;' + '&nbsp;&nbsp;|&nbsp;&nbsp;'.join(report.az.expression_links) + '</br>'
-            if report.az.expression_links }}
+        if report.az.expression_links }}
 </div>
+{% endif %}
 
 <hr id="mqc_header_hr" style="margin-bottom: 10px;">
 
-{% if report.az.metric_names %}
+{% if report.az and report.az.metric_names %}
 <div id="general_stats_table_container" class="mqc_table_container">
     <div class="table-responsive">
         <table id="general_stats_table" class="table table-condensed mqc_table">
@@ -80,15 +84,6 @@ was generated and the button that launches the welcome tour.
 
 {#<hr id="mqc_header_hr">#}
 
-<div class="alert alert-info alert-dismissible hidden-print" id="mqc_welcome" style="display: none;">
-  <button type="button" data-dismiss="alert" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <button type="button" data-dismiss="alert" class="btn-link btn-sm" id="mqc_hide_welcome_btn">don't show again</button>
-  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-  <strong>Welcome!</strong> Not sure where to start? &nbsp;
-  <a href="https://www.youtube.com/watch?v=qPbIlO_KWN0" target="_blank" class="btn btn-info btn-sm">Watch a tutorial video</a>
-  &nbsp; <small><em>(6:06)</em></small>
-</div>
-
 {% if report.num_hc_plots > 0 and report.general_stats_data | length > config.num_datasets_plot_limit %}
 <div id="mqc-warning-many-samples" class="alert alert-warning alert-dismissible hidden-print">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -98,4 +93,4 @@ was generated and the button that launches the welcome tour.
 </div>
 {% endif %}
 
-{{ report.az['sample_match_on_hover_js'] if 'sample_match_on_hover_js' in report.az }}
+{{ report.az['sample_match_on_hover_js'] if report.az and 'sample_match_on_hover_js' in report.az }}

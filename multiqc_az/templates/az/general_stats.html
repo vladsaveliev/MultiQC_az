@@ -13,7 +13,7 @@ This block generates the General Statistics table at the top of the report.
   {{ report.general_stats_html }}
 </div>
 {% if (report.ngs_reports_added or report.lims_added) %}
-<div style="margin: -15px 5px 35px;">
+<div style="margin: 0px 5px 35px;">
   {% if report.ngs_reports_added and not report.beeswarm_renderred  %}
     To access NGS Oncology reports, click on a sample name.
   {% endif %}
