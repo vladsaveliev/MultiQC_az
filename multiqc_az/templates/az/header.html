@@ -20,25 +20,25 @@ was generated and the button that launches the welcome tour.
 </h1>
 
 {% if config.report_comment and config.report_comment | length > 0 %}
-<blockquote class="report_comment">{{ config.report_comment }}</blockquote>
+  <blockquote class="report_comment">{{ config.report_comment }}</blockquote>
 {% endif %}
 
 
 <div class="well">
     <dl class="dl-horizontal" style="margin-bottom:0;">
-        {% if report.az %}
+      {% if report.az %}
         {{ '<dt>Project:</dt><dd>' + report.az.project_name + '</dd>' }}
         {{ '<dt>Creation date:</dt><dd>' + report.az.run_section.run_date
           + ('&nbsp;&nbsp;|&nbsp;&nbsp;' + report.az.run_section.program_versions if report.az.run_section.program_versions else '')
           + ('&nbsp;&nbsp;|&nbsp;&nbsp;' + report.az.run_section.data_versions if report.az.run_section.data_versions else '')
           + '</dd>' }}
         {{ '<dt>Analysis directory:</dt><dd>' + report.az.run_section.analysis_dir + '</dd>' }}
-        {% endif %}
-    {% if config.report_header_info and config.report_header_info | length > 0 %}
+      {% endif %}
+      {% if config.report_header_info and config.report_header_info | length > 0 %}
         {% for d in config.report_header_info %}{% for k, v in d.items() %}
-        <dt>{{ k }}</dt><dd>{{ v }}</dd>
+          <dt>{{ k }}</dt><dd>{{ v }}</dd>
         {% endfor %}{% endfor %}
-    {% endif %}
+      {% endif %}
     </dl>
 </div>
 

@@ -18,24 +18,25 @@ sp:
 table_columns_visible:
     FastQC:
         percent_gc: False
-        percent_duplicates: False  # is also set in bcbio/__init__.py
-        total_sequences: False     # is also set in bcbio/__init__.py
+        percent_duplicates: False                 # is also set in bcbio/__init__.py
+        total_sequences: False                    # is also set in bcbio/__init__.py
     QualiMap:
         median_coverage: False
         reads_aligned: False
-        percentage_aligned: False  # is also set in bcbio/__init__.py
+        percentage_aligned: False                 # is also set in bcbio/__init__.py
     Samtools Stats:
-        error_rate: False
-        non-primary_alignments: False
-        reads_mapped: False
-        reads_mapped_percent: False
-        raw_total_sequences: False
+        non-primary_alignments: False             # is also set in bcbio/__init__.py
+        reads_mapped: False                       # is also set in bcbio/__init__.py
+        reads_mapped_percent: False               # is also set in bcbio/__init__.py
+        raw_total_sequences: False                # is also set in bcbio/__init__.py
+        error_rate: False                         # is also set in bcbio/__init__.py
     bcbio:
         Ontarget_padded_pct: True
+        Average_insert_size: False
     SnpEff:
-        Change_rate: False
-        Ts_Tv_ratio: False
-        Number_of_variants_before_filter: False
+        Change_rate: False                        # is also set in bcbio/__init__.py
+        Ts_Tv_ratio: False                        # is also set in bcbio/__init__.py
+        Number_of_variants_before_filter: False   # is also set in bcbio/__init__.py
     Bcftools Stats:
         number_of_SNPs: True
         number_of_indels: True
