@@ -53,7 +53,7 @@ the output from each module and print it in sections.
     {% for m in report.modules_output %}
       {% if m.anchor == anchor %}
         <div id="mqc-module-section-{{ m.anchor }}" class="mqc-module-section">
-{#        {{ m.intro if m.intro }}#}
+        <div style="display: none">{{ m.intro if m.intro }}</div>
         {% if m.comment %}<blockquote class="mqc-section-comment">{{ m.comment }}</blockquote>{% endif %}
       {% endif %}
       {% for s in m.sections %}
