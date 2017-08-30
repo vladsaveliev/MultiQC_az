@@ -32,6 +32,6 @@
   font-size: 50%;
   line-height: 1; }
 
-.mqc_table tbody tr td .wrapper .val {
+.mqc_table tbody tr td[class*="Sample_Type"] .wrapper {
     z-index: 0;
 }
