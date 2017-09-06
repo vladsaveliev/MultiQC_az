@@ -23,6 +23,7 @@ table_columns_visible:
         percent_gc: False
         percent_duplicates: False                 # is also set in bcbio/__init__.py
         total_sequences: False                    # is also set in bcbio/__init__.py
+        avg_sequence_length: False                # is also set in bcbio/__init__.py
     QualiMap:
         median_coverage: False
         reads_aligned: False
