@@ -34,12 +34,9 @@ setup(
         'multiqc.templates.v1': [
             'az = multiqc_az.templates.az',
         ],
-        'multiqc.cli_options.v1': [
-            'metadata = multiqc_az.cli:az_metadata',
-        ],
         'multiqc.hooks.v1': [
             'config_loaded            = multiqc_az.multiqc_az:config_loaded',
-            'execution_start          = multiqc_az.multiqc_az:load_metadata',
+            'execution_start          = multiqc_az.multiqc_az:execution_start',
             'after_modules            = multiqc_az.multiqc_az:before_set_general_stats_html',
             'before_report_generation = multiqc_az.multiqc_az:after_set_general_stats_html',
         ]

@@ -5,6 +5,9 @@ template: 'az'
 #read_count_multiplier: 0.001
 #read_count_prefix: 'k'
 #read_count_desc: ' thousand'
+base_count_multiplier: 0.000000001
+base_count_prefix: 'Gb'
+base_count_desc: 'gigabases'
 output_fn_name: 'report.html'
 make_data_dir: False
 
@@ -57,8 +60,8 @@ clarity:
     general_stats:
         Sample:
             'Sample Type':
-                'title': 'Type'
+                title: 'Type'
             'Sample Tissue':
-                'title': 'Type'
+                title: 'Type'
             'Sample Conc.':
                 title: 'Conc.'

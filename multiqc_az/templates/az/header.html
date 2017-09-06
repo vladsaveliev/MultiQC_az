@@ -27,12 +27,12 @@ was generated and the button that launches the welcome tour.
 <div class="well">
     <dl class="dl-horizontal" style="margin-bottom:0;">
       {% if report.az %}
-        {{ '<dt>Project:</dt><dd>' + report.az.project_name + '</dd>' }}
-        {{ '<dt>Creation date:</dt><dd>' + report.az.run_section.run_date
-          + ('&nbsp;&nbsp;|&nbsp;&nbsp;' + report.az.run_section.program_versions if report.az.run_section.program_versions else '')
-          + ('&nbsp;&nbsp;|&nbsp;&nbsp;' + report.az.run_section.data_versions if report.az.run_section.data_versions else '')
+        {{ '<dt>Project:</dt><dd>' + config.title + '</dd>' }}
+        {{ '<dt>Creation date:</dt><dd>' + config.az.run_section.run_date
+          + ('&nbsp;&nbsp;|&nbsp;&nbsp;' + config.az.run_section.program_versions if report.az.run_section.program_versions else '')
+          + ('&nbsp;&nbsp;|&nbsp;&nbsp;' + config.az.run_section.data_versions if report.az.run_section.data_versions else '')
           + '</dd>' }}
-        {{ '<dt>Analysis directory:</dt><dd>' + report.az.run_section.analysis_dir + '</dd>' }}
+        {{ '<dt>Analysis directory:</dt><dd>' + config.az.run_section.analysis_dir + '</dd>' }}
       {% endif %}
       {% if config.report_header_info and config.report_header_info | length > 0 %}
         {% for d in config.report_header_info %}{% for k, v in d.items() %}

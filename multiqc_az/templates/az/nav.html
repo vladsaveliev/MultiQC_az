@@ -52,19 +52,18 @@ The side navigation for the report.
       <h1 class="side-nav-title"><a href="#">{{ config.title }}</a></h1>
     {% endif %}
 
-    {% from "groups.html" import postalign_group, groups %}
+    {% from "groups.html" import alignstats_group, groups with context %}
     <ul class="mqc-nav collapse navbar-collapse">
       {% if not config.skip_generalstats %}
         <li>
-          <a href="#{{ postalign_group.id }}" class="nav-l1">{{ postalign_group.title }}</a>
+          <a href="#{{ alignstats_group.id }}" class="nav-l1">{{ alignstats_group.title }}</a>
         </li>
       {% endif -%}
-
       {% for group in groups %}
         {% set sections = find_sections(group) %}
         {% if sections|trim %}
           <li>
-            {% if group.id != postalign_group.id %}
+            {% if group.id != alignstats_group.id %}
               <a href="#{{ group.id }}" class="nav-l1">{{ group.title }}</a>
             {% endif %}
             <ul>

@@ -1,40 +1,64 @@
 {# Defining our high-level group: #}
 
-{% set postalign_group = dict(
+{% set alignstats_group = dict(
   id="postalign",
   title="Post-Alignment",
   table="postalign-stats",
   anchors=[
-      "qualimap", "targqc", "Samtools",
+      "qualimap", "Samtools", "goleft_indexcov",
       "rnaseq_az", "featureCounts", "salmon", "star", "tophat",
       "bcbio-mirs", "bcbio-isomirs"]) %}
-      {#"bcbio-fraction-coverage",#}
 
 {% set groups = [
-postalign_group,
-dict(
-  id="umi",
-  title="UMI",
-  table="umi-stats",
-  anchors=["umi-stats-counts"]),
-dict(
-  id="preseq",
-  title="Preseq",
-  table=none,
-  anchors=["preseq"]),
-dict(
-  id="viral",
-  title="Viral mapping",
-  table="viral-counts",
-  anchors=[]),
-dict(
-  id="variants",
-  title="Variations",
-  table=none,
-  anchors=["snpeff", "Bcftools", "bcbio-fraction-variants", "bcbio-fraction-qsignature", "damage-stats"]),
-dict(
-  id="prealign",
-  title="Fastq",
-  table=none,
-  anchors=["fastqc", "cutadapt", "trimmomatic", "fastq_screen", "bcl2fastq"]),
+  alignstats_group,
+  dict(
+    id="umi",
+    title="UMI",
+    table="umi-stats",
+    anchors=["umi-stats-counts"]),
+  dict(
+    id="preseq",
+    title="Complexity",
+    table=none,
+    anchors=["preseq"]),
+  dict(
+    id="viral",
+    title="Viral mapping",
+    table="viral-counts",
+    anchors=[]),
+  dict(
+    id="variants",
+    title="Variations",
+    table=none,
+    anchors=["snpeff", "Bcftools", "bcbio-fraction-variants", "bcbio-fraction-qsignature", "damage-stats"]),
+  dict(
+    id="reads",
+    title="Reads",
+    table=none,
+    anchors=["fastqc", "cutadapt", "trimmomatic", "fastq_screen", "bcl2fastq"]),
 ] %}
+
+{% set prealign_alignstats_group = dict(
+  id="postalign",
+  title="Downsampled Alignment",
+  table="postalign-stats",
+  anchors=["preseq", "qualimap", "Samtools", "goleft_indexcov"]) %}
+
+{% set prealign_groups = [
+  prealign_alignstats_group,
+  dict(
+    id="lanes",
+    title="Lanes (full)",
+    table=none,
+    anchors=["bcl2fastq-lanestats", "bcl2fastq-bylane"]),
+  dict(
+    id="reads",
+    title="Reads (full)",
+    table=none,
+    anchors=["bcl2fastq-bysample", "fastqc", "fastq_screen"]),
+] %}
+
+{% if config.az and config.az.prealign %}
+  {% set alignstats_group = prealign_alignstats_group %}
+  {% set groups = prealign_groups %}
+{% endif %}
