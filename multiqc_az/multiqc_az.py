@@ -65,7 +65,7 @@ class before_set_general_stats_html:
                 }
             })
 
-        if az_conf.get('prealign'):
+        if az_conf and 'prealign' in az_conf:
             config.report_header_info = [
                 d for d in config.report_header_info
                 if list(d.keys())[0] != 'Target for var. calling:']
