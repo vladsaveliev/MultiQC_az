@@ -10,7 +10,7 @@ This block generates the General Statistics table at the top of the report.
 {% from "groups.html" import alignstats_group with context %}
 <div id="{{ alignstats_group.id }}">
   <h2>{{ alignstats_group.title }}</h2>
-  {% if config.az.prealign %}
+  {% if config.az and config.az.prealign %}
     <p>
       Alignment statistics are based on a {{ config.az.prealign.downsampled_percent }}%
       fraction of total reads for each sample.</p>
