@@ -12,13 +12,18 @@ This block generates the General Statistics table at the top of the report.
   <h2>{{ alignstats_group.title }}</h2>
   {% if config.az and config.az.prealign %}
     <p>
-      Alignment statistics are based on a {{ config.az.prealign.downsampled_percent }}%
+      Alignment statistics are estimated based of a {{ config.az.prealign.downsampled_percent }}%
       fraction of total reads for each sample.</p>
     <p>
+    {% if config.az.prealign.preseq_predictions %}
       Duplication ratio is predicted by Preseq, and reflected in
       "E Dup" (estimated duplication ratio), "E Cov" (estimated depth of coverage),
-      "E Usable" (percentage of unique reads on target).
-      Please note that Preseq does not take UMIs into account!</p>
+      "E Usable" (percentage of unique reads on target).</p>
+    {% else %}
+      Metric "E Cov" (estimated depth of coverage) is estimated
+      roughly simply based on the dowmsampled percentage.
+      Preseq was not run because it doesn't work with UMIs.</p>
+    {% endif %}
   {% endif %}
   {{ report.general_stats_html }}
 </div>

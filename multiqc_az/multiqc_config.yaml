@@ -25,9 +25,9 @@ table_columns_visible:
         total_sequences: False                    # is also set in bcbio/__init__.py
         avg_sequence_length: False                # is also set in bcbio/__init__.py
     QualiMap:
-        median_coverage: False
         reads_aligned: False
         percentage_aligned: False                 # is also set in bcbio/__init__.py
+        median_coverage: False                    # is also set in bcbio/__init__.py
     Samtools Stats:
         non-primary_alignments: False             # is also set in bcbio/__init__.py
         reads_mapped: False                       # is also set in bcbio/__init__.py
