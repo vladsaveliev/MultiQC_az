@@ -18,12 +18,13 @@ This block generates the General Statistics table at the top of the report.
     {% if config.az.prealign.preseq_predictions %}
       Duplication ratio is predicted by Preseq, and reflected in
       "E Dup" (estimated duplication ratio), "E Cov" (estimated depth of coverage),
-      "E Usable" (percentage of unique reads on target).</p>
+      "E Usable" (percentage of unique reads on target).
     {% else %}
 {#      Metric "E Cov" (estimated depth of coverage) is estimated#}
 {#      roughly simply based on the dowmsampled percentage.#}
-      Preseq was not run because it doesn't work with UMIs.</p>
+      Preseq was not run because it doesn't work with UMIs.
     {% endif %}
+    </p>
   {% endif %}
   {{ report.general_stats_html }}
 </div>
