@@ -55,7 +55,7 @@ preseq:
     notrim: True
 
 bcftools:
-    collapse_complementary_changes: True
+    collapse_complementary_changes: False
 
 clarity:
     general_stats:
