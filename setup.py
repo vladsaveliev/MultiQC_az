@@ -28,7 +28,6 @@ setup(
     ],
     entry_points = {
         'multiqc.modules.v1': [
-            'targqc      = multiqc_az.modules.targqc:MultiqcModule',
             'rnaseq_az   = multiqc_az.modules.rnaseq_az:MultiqcModule',
         ],
         'multiqc.templates.v1': [
