@@ -72,12 +72,14 @@ the output from each module and print it in sections.
 {% from "groups.html" import alignstats_group, groups with context %}
 {% for group in groups %}
   {% set sections = find_sections(group) %}
+  {% if sections|trim %}
     <div id="mqc-module-section-{{ group.id }}" class="mqc-module-section">
       {% if group.id != alignstats_group.id %}
         <h2 id="{{ group.id }}">{{ group.title }}</h2>
       {% endif %}
       {{ sections }}
     </div>
+  {% endif %}
 {% endfor %}
 
 {#
