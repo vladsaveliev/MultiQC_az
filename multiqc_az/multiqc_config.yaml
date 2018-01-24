@@ -50,7 +50,7 @@ table_columns_visible:
         variations_het: False
         number_of_MNPs: False
         number_of_others: False
-      Peddy:
+    Peddy:
         family_id: False
         ancestry-prediction: False
         sex_het_ratio: False
