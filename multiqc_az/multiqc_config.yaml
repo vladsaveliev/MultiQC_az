@@ -16,6 +16,25 @@ sp:
         fn: 'summary.json'
     rnaseq_az/pca_data:
         fn: 'pca_data.txt'
+    RNAseqDE:
+        fn: 'de_gene_key.csv'
+        fn: 'RNA_HM.csv'
+    RNAseqFA:
+        fn: 'pathway_table.csv'
+    RNAseqQC:
+        fn: 'corMatrix.csv'
+        fn: 'gene.est.csv'
+        fn: 'gene.final.csv'
+        fn: 'gene.fitted.csv'
+        fn: 'normalizedCounts.csv'
+        fn: 'combined.counts'
+        fn: 'rawCounts.csv'
+        fn: 'rlog.csv'
+        fn: 'tpm.csv'
+        fn: 'vst.csv'
+        fn: 'pca.csv'
+        fn: 'gene2biotype.csv'
+
 
 # Overwrite the defaults of which table columns are visible by default
 table_columns_visible:

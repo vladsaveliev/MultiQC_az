@@ -38,6 +38,9 @@ setup(
             'execution_start          = multiqc_az.multiqc_az:execution_start',
             'after_modules            = multiqc_az.multiqc_az:before_set_general_stats_html',
             'before_report_generation = multiqc_az.multiqc_az:after_set_general_stats_html',
+            'RNAseqDE                 = multiqc_az.modules.RNAseqDE:MultiqcModule',
+            'RNAseqQC                 = multiqc_az.modules.RNAseqQC:MultiqcModule',
+            'RNAseqFA                 = multiqc_az.modules.RNAseqFA:MultiqcModule',
         ]
     },
     classifiers = [
