@@ -25,6 +25,7 @@ setup(
     install_requires = [
         'simplejson',
         'pyyaml',
+        'plotly'
     ],
     entry_points = {
         'multiqc.modules.v1': [
