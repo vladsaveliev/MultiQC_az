@@ -228,14 +228,13 @@ class MultiqcModule(BaseMultiqcModule):
         super(MultiqcModule, self).__init__(name='RNA Differential Expression', anchor=mod_name)
         # make dict of de-tables per contrast
         de = {}
-        for f in self.find_log_files(mod_name, filecontents=False):
+        for f in self.find_log_files('bcbio_rnaseq_de/de_gene_key', filecontents=False):
             print(f)
             dirpath, fname = f['root'], f['fn']
-            if f['s_name'] == 'de_gene_key':
-                de_path = join(dirpath, fname)
-                contrast = f['root'].split('/')
-                data = pd.read_csv(de_path)
-                de[contrast[-1]] = data
+            de_path = join(dirpath, fname)
+            contrast = f['root'].split('/')
+            data = pd.read_csv(de_path)
+            de[contrast[-1]] = data
 
         if len(de)==0:
             print('no DE files')

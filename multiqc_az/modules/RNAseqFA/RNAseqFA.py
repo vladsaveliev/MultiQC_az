@@ -279,15 +279,14 @@ class MultiqcModule(BaseMultiqcModule):
         pw = {}
         pw_dir = {}
 
-        for f in self.find_log_files(mod_name, filecontents=False):
+        for f in self.find_log_files('bcbio_rnaseq_fa/pathway_table', filecontents=False):
             print(f)
             dirpath, fname = f['root'], f['fn']
-            if f['s_name'] == 'pathway_table':
-                pw_path = join(dirpath, fname)
-                contrast = f['root'].split('/')
-                data = pd.read_csv(pw_path, usecols=[0,1,3,6], index_col=[0])
-                pw[contrast[-1]] = data
-                pw_dir[contrast[-1]] = dirpath
+            pw_path = join(dirpath, fname)
+            contrast = f['root'].split('/')
+            data = pd.read_csv(pw_path, usecols=[0,1,3,6], index_col=[0])
+            pw[contrast[-1]] = data
+            pw_dir[contrast[-1]] = dirpath
 
         if len(pw) > 0:
             self.pathway_enrichment_heatmap(pw)

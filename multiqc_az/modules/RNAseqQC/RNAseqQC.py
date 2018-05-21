@@ -26,27 +26,44 @@ class MultiqcModule(BaseMultiqcModule):
 
         # Initialise the parent object
         super(MultiqcModule, self).__init__(name='bcbiornaseqqc', anchor=mod_name)
+
+        raw_counts = None
+        norm_counts = None
+        raw_data = None
+        pca_data = None
+        tpm = None
+        biotype = None
+
         file_names, roots = [], []
-        for f in self.find_log_files(mod_name, filecontents=False):
+        for f in self.find_log_files('bcbio_rnaseq_qc/raw_counts', filecontents=False):
             print(f)
             dirpath, fname = f['root'], f['fn']
-            if f['s_name'] == 'rawCounts':
-                raw_counts = pd.read_csv(join(dirpath, fname))
-                # print(raw_counts.head())
-            if f['s_name'] == 'normalizedCounts':
-                norm_counts = pd.read_csv(join(dirpath, fname))
-                # print(norm_counts.head())
-            if f['s_name'] == 'corMatrix':
-                raw_data = pd.read_csv(join(dirpath, fname))
-                # print(raw_data.head())
-            if f['s_name'] == 'pca':
-                pca_data = pd.read_csv(join(dirpath, fname), index_col=[0])
-            if f['s_name'] == 'tpm':
-                tpm = pd.read_csv(join(dirpath, fname),index_col=[0])
-            if f['s_name'] == 'gene2biotype':
-                biotype = pd.read_csv(join(dirpath, fname),index_col=[0])
+            raw_counts = pd.read_csv(join(dirpath, fname))
 
+        for f in self.find_log_files('bcbio_rnaseq_qc/normalized_counts', filecontents=False):
+            print(f)
+            dirpath, fname = f['root'], f['fn']
+            norm_counts = pd.read_csv(join(dirpath, fname))
 
+        for f in self.find_log_files('bcbio_rnaseq_qc/cormatrix', filecontents=False):
+            print(f)
+            dirpath, fname = f['root'], f['fn']
+            raw_data = pd.read_csv(join(dirpath, fname))
+
+        for f in self.find_log_files('bcbio_rnaseq_qc/pca', filecontents=False):
+            print(f)
+            dirpath, fname = f['root'], f['fn']
+            pca_data = pd.read_csv(join(dirpath, fname), index_col=[0])
+
+        for f in self.find_log_files('bcbio_rnaseq_qc/tpm', filecontents=False):
+            print(f)
+            dirpath, fname = f['root'], f['fn']
+            tpm = pd.read_csv(join(dirpath, fname), index_col=[0])
+
+        for f in self.find_log_files('bcbio_rnaseq_qc/gene2biotype', filecontents=False):
+            print(f)
+            dirpath, fname = f['root'], f['fn']
+            biotype = pd.read_csv(join(dirpath, fname), index_col=[0])
 
         col_names = list(raw_counts)[1:]
         group_num = len(col_names)
@@ -58,7 +75,7 @@ class MultiqcModule(BaseMultiqcModule):
         #self.plot_disp_ests(combined_counts, genes_est,genes_final,genes_fitted)
         self.plot_covariates(raw_data)
         self.plot_pca(pca_data)
-        self.tpm_perbiotype(tpm,biotype)
+        self.tpm_perbiotype(tpm, biotype)
 
     def plot_pca(self, pca_data):
 

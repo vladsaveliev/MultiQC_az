@@ -14,25 +14,41 @@ make_data_dir: False
 sp:
     targqc/summary:
         fn: 'summary.json'
+
     rnaseq_az/pca_data:
         fn: 'pca_data.txt'
-    RNAseqDE:
+
+    bcbio_rnaseq_de/de_gene_key:
         fn: 'de_gene_key.csv'
+    bcbio_rnaseq_de/hm:
         fn: 'RNA_HM.csv'
-    RNAseqFA:
+
+    bcbio_rnaseq_fa/pathway_table:
         fn: 'pathway_table.csv'
-    RNAseqQC:
+
+    bcbio_rnaseq_qc/cormatrix:
         fn: 'corMatrix.csv'
+    bcbio_rnaseq_qc/gene_est:
         fn: 'gene.est.csv'
+    bcbio_rnaseq_qc/gene_final:
         fn: 'gene.final.csv'
+    bcbio_rnaseq_qc/gene_fitted:
         fn: 'gene.fitted.csv'
+    bcbio_rnaseq_qc/normalized_counts:
         fn: 'normalizedCounts.csv'
+    bcbio_rnaseq_qc/combined_counts:
         fn: 'combined.counts'
-        fn: 'rawCounts.csv'
+    bcbio_rnaseq_qc/raw_counts:
+        fn: 'raw_counts.csv'
+    bcbio_rnaseq_qc/rlog:
         fn: 'rlog.csv'
+    bcbio_rnaseq_qc/tpm:
         fn: 'tpm.csv'
+    bcbio_rnaseq_qc/vst:
         fn: 'vst.csv'
+    bcbio_rnaseq_qc/pca:
         fn: 'pca.csv'
+    bcbio_rnaseq_qc/gene2biotype:
         fn: 'gene2biotype.csv'
 
 
