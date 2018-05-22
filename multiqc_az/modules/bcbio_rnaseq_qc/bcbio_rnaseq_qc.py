@@ -1,28 +1,24 @@
-
-
-
 """ MultiQC module to parse output from bcbioRNASeq Quality control """
 
-from multiqc.modules.base_module import BaseMultiqcModule
 import plotly as py
 import pandas as pd
 import plotly.graph_objs as go
-
 import scipy.stats as st
-from multiqc.plots import scatter, heatmap
-import logging
 from os.path import join
-
+from multiqc.modules.base_module import BaseMultiqcModule
+from multiqc.plots import scatter, heatmap
+from multiqc import config
+import logging
 
 # Initialise the logger
-log = logging.getLogger(__name__)
+log = logging.getLogger(__name__.replace('multiqc_az', 'multiqc'))
 
 
 class MultiqcModule(BaseMultiqcModule):
 
     def __init__(self):
 
-        mod_name = 'RNAseqQC'
+        mod_name = 'bcbio_rnaseq_qc'
 
         # Initialise the parent object
         super(MultiqcModule, self).__init__(name='bcbiornaseqqc', anchor=mod_name)
@@ -34,36 +30,33 @@ class MultiqcModule(BaseMultiqcModule):
         tpm = None
         biotype = None
 
-        file_names, roots = [], []
         for f in self.find_log_files('bcbio_rnaseq_qc/raw_counts', filecontents=False):
-            print(f)
-            dirpath, fname = f['root'], f['fn']
-            raw_counts = pd.read_csv(join(dirpath, fname))
+            fpath = join(f['root'], f['fn'])
+            raw_counts = pd.read_csv(fpath)
 
         for f in self.find_log_files('bcbio_rnaseq_qc/normalized_counts', filecontents=False):
-            print(f)
-            dirpath, fname = f['root'], f['fn']
-            norm_counts = pd.read_csv(join(dirpath, fname))
+            fpath = join(f['root'], f['fn'])
+            norm_counts = pd.read_csv(fpath)
 
         for f in self.find_log_files('bcbio_rnaseq_qc/cormatrix', filecontents=False):
-            print(f)
-            dirpath, fname = f['root'], f['fn']
-            raw_data = pd.read_csv(join(dirpath, fname))
+            fpath = join(f['root'], f['fn'])
+            raw_data = pd.read_csv(fpath)
 
         for f in self.find_log_files('bcbio_rnaseq_qc/pca', filecontents=False):
-            print(f)
-            dirpath, fname = f['root'], f['fn']
-            pca_data = pd.read_csv(join(dirpath, fname), index_col=[0])
+            fpath = join(f['root'], f['fn'])
+            pca_data = pd.read_csv(fpath, index_col=[0])
 
         for f in self.find_log_files('bcbio_rnaseq_qc/tpm', filecontents=False):
-            print(f)
-            dirpath, fname = f['root'], f['fn']
-            tpm = pd.read_csv(join(dirpath, fname), index_col=[0])
+            fpath = join(f['root'], f['fn'])
+            tpm = pd.read_csv(fpath, index_col=[0])
 
         for f in self.find_log_files('bcbio_rnaseq_qc/gene2biotype', filecontents=False):
-            print(f)
-            dirpath, fname = f['root'], f['fn']
-            biotype = pd.read_csv(join(dirpath, fname), index_col=[0])
+            fpath = join(f['root'], f['fn'])
+            biotype = pd.read_csv(fpath, index_col=[0])
+
+        if raw_counts is None:
+            log.debug("Could not find data for bcbioRNAseq-QC in {}".format(config.analysis_dir))
+            raise UserWarning
 
         col_names = list(raw_counts)[1:]
         group_num = len(col_names)

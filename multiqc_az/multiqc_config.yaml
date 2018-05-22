@@ -12,9 +12,6 @@ output_fn_name: 'report.html'
 make_data_dir: False
 
 sp:
-    targqc/summary:
-        fn: 'summary.json'
-
     rnaseq_az/pca_data:
         fn: 'pca_data.txt'
 
@@ -39,7 +36,7 @@ sp:
     bcbio_rnaseq_qc/combined_counts:
         fn: 'combined.counts'
     bcbio_rnaseq_qc/raw_counts:
-        fn: 'raw_counts.csv'
+        fn: 'rawCounts.csv'
     bcbio_rnaseq_qc/rlog:
         fn: 'rlog.csv'
     bcbio_rnaseq_qc/tpm:

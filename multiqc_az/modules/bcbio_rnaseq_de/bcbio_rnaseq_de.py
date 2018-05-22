@@ -7,12 +7,15 @@ import plotly.graph_objs as go
 from os.path import join, dirname, abspath
 import pandas as pd
 import numpy as np
-
-
-from multiqc.modules.base_module import BaseMultiqcModule
+from collections import OrderedDict
 
 from multiqc.plots import table, scatter, heatmap
-from collections import OrderedDict
+from multiqc.modules.base_module import BaseMultiqcModule
+from multiqc import config
+import logging
+
+# Initialise the logger
+log = logging.getLogger(__name__.replace('multiqc_az', 'multiqc'))
 
 
 class MultiqcModule(BaseMultiqcModule):
@@ -224,26 +227,24 @@ class MultiqcModule(BaseMultiqcModule):
         )
 
     def __init__(self):
-        mod_name = 'RNAseqDE'
+        mod_name = 'bcbio_rnaseq_de'
         super(MultiqcModule, self).__init__(name='RNA Differential Expression', anchor=mod_name)
         # make dict of de-tables per contrast
         de = {}
         for f in self.find_log_files('bcbio_rnaseq_de/de_gene_key', filecontents=False):
-            print(f)
-            dirpath, fname = f['root'], f['fn']
-            de_path = join(dirpath, fname)
             contrast = f['root'].split('/')
-            data = pd.read_csv(de_path)
+            data = pd.read_csv(join(f['root'], f['fn']))
             de[contrast[-1]] = data
 
-        if len(de)==0:
-            print('no DE files')
-        else:
-            self.addVolcano(de)
-            self.addNumDE_perContrast(de)
-            self.addDE_overlap(de)
-            self.addTopGenes(de)
-            self.addBaseMeanPlot(de)
+        if not de:
+            log.debug("Could not find files for bcbioRNAseq-DE in {}".format(config.analysis_dir))
+            raise UserWarning
+
+        self.addVolcano(de)
+        self.addNumDE_perContrast(de)
+        self.addDE_overlap(de)
+        self.addTopGenes(de)
+        self.addBaseMeanPlot(de)
 
 
 

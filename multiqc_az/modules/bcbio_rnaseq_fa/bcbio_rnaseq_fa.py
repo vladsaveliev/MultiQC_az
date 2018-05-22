@@ -4,6 +4,11 @@ from os.path import join, dirname, isfile
 from collections import OrderedDict
 from multiqc.modules.base_module import BaseMultiqcModule
 from multiqc.plots import table, heatmap
+from multiqc import config
+import logging
+
+# Initialise the logger
+log = logging.getLogger(__name__.replace('multiqc_az', 'multiqc'))
 
 
 class MultiqcModule(BaseMultiqcModule):
@@ -272,7 +277,7 @@ class MultiqcModule(BaseMultiqcModule):
 
     def __init__(self):
 
-        mod_name = 'RNAseqFA'
+        mod_name = 'bcbio_rnaseq_fa'
 
         super(MultiqcModule, self).__init__(name='DE genes pathways', anchor=mod_name)
         # make dict of pathway tables per contrast
@@ -280,20 +285,18 @@ class MultiqcModule(BaseMultiqcModule):
         pw_dir = {}
 
         for f in self.find_log_files('bcbio_rnaseq_fa/pathway_table', filecontents=False):
-            print(f)
-            dirpath, fname = f['root'], f['fn']
-            pw_path = join(dirpath, fname)
             contrast = f['root'].split('/')
-            data = pd.read_csv(pw_path, usecols=[0,1,3,6], index_col=[0])
+            data = pd.read_csv(join(f['root'], f['fn']), usecols=[0,1,3,6], index_col=[0])
             pw[contrast[-1]] = data
             pw_dir[contrast[-1]] = dirpath
 
-        if len(pw) > 0:
-            self.pathway_enrichment_heatmap(pw)
-            self.pathway_graphs(pw_dir, pw)
-        else:
-            print('pw is empty')
+        if not pw:
+            log.debug("Could not find files for bcbioRNAseq-FA in {}".format(config.analysis_dir))
+            raise UserWarning
 
+        self.pathway_enrichment_heatmap(pw)
+        self.pathway_graphs(pw_dir, pw)
 
-        #
-
+        if not de:
+            log.debug("Could not find files for bcbioRNAseq-DE in {}".format(config.analysis_dir))
+            raise UserWarning

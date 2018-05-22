@@ -29,7 +29,10 @@ setup(
     ],
     entry_points = {
         'multiqc.modules.v1': [
-            'rnaseq_az   = multiqc_az.modules.rnaseq_az:MultiqcModule',
+            'rnaseq_az          = multiqc_az.modules.rnaseq_az:MultiqcModule',
+            'bcbio_rnaseq_de    = multiqc_az.modules.bcbio_rnaseq_de:MultiqcModule',
+            'bcbio_rnaseq_qc    = multiqc_az.modules.bcbio_rnaseq_qc:MultiqcModule',
+            'bcbio_rnaseq_fa    = multiqc_az.modules.bcbio_rnaseq_fa:MultiqcModule',
         ],
         'multiqc.templates.v1': [
             'az = multiqc_az.templates.az',
@@ -39,9 +42,6 @@ setup(
             'execution_start          = multiqc_az.multiqc_az:execution_start',
             'after_modules            = multiqc_az.multiqc_az:before_set_general_stats_html',
             'before_report_generation = multiqc_az.multiqc_az:after_set_general_stats_html',
-            'RNAseqDE                 = multiqc_az.modules.RNAseqDE:MultiqcModule',
-            'RNAseqQC                 = multiqc_az.modules.RNAseqQC:MultiqcModule',
-            'RNAseqFA                 = multiqc_az.modules.RNAseqFA:MultiqcModule',
         ]
     },
     classifiers = [
